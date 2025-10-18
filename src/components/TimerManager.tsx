@@ -128,6 +128,14 @@ const TimerManager: React.FC<TimerManagerProps> = ({ allowMultipleTimers = false
     );
   };
 
+  const removeTimer = (id: string) => {
+    setTimers((currentTimers) => currentTimers.filter(timer => timer.id !== id));
+  };
+
+  const removeAllTimers = () => {
+    setTimers([]);
+  };
+
   const formatTime = (seconds: number): string => {
     const hours = Math.floor(seconds / 3600);
     const minutes = Math.floor((seconds % 3600) / 60);
@@ -139,19 +147,35 @@ const TimerManager: React.FC<TimerManagerProps> = ({ allowMultipleTimers = false
 
   return (
     <div className="timer-manager">
-      <div className="add-timer">
-        <input
-          type="text"
-          value={newTimerName}
-          onChange={(e) => setNewTimerName(e.target.value)}
-          placeholder="Enter timer name"
-        />
-        <button onClick={addTimer}>Add Timer</button>
+      <div className="timer-controls">
+        <div className="add-timer">
+          <input
+            type="text"
+            value={newTimerName}
+            onChange={(e) => setNewTimerName(e.target.value)}
+            placeholder="Enter timer name"
+          />
+          <button onClick={addTimer}>Add Timer</button>
+        </div>
+        {timers.length > 0 && (
+          <button className="remove-all-btn" onClick={removeAllTimers}>
+            Remove All Timers
+          </button>
+        )}
       </div>
 
       <div className="timers-list">
         {timers.map((timer) => (
           <div key={timer.id} className="timer-container">
+            <div className="timer-header">
+              <button 
+                className="remove-timer-btn" 
+                onClick={() => removeTimer(timer.id)}
+                title="Remove timer"
+              >
+                ×
+              </button>
+            </div>
             <Timer
               id={timer.id}
               name={timer.name}

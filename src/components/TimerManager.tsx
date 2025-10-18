@@ -120,6 +120,14 @@ const TimerManager: React.FC<TimerManagerProps> = ({ allowMultipleTimers = false
     }
   };
 
+  const clearHistory = (id: string) => {
+    setTimers((currentTimers) =>
+      currentTimers.map((timer) =>
+        timer.id === id ? { ...timer, history: [] } : timer
+      )
+    );
+  };
+
   const formatTime = (seconds: number): string => {
     const hours = Math.floor(seconds / 3600);
     const minutes = Math.floor((seconds % 3600) / 60);
@@ -156,7 +164,16 @@ const TimerManager: React.FC<TimerManagerProps> = ({ allowMultipleTimers = false
             />
             {timer.history.length > 0 && (
               <div className="timer-history">
-                <h4>History</h4>
+                <div className="history-header">
+                  <h4>History</h4>
+                  <button 
+                    className="clear-history-btn"
+                    onClick={() => clearHistory(timer.id)}
+                    title="Clear history"
+                  >
+                    Clear History
+                  </button>
+                </div>
                 <div className="history-entries">
                   {timer.history.map((entry) => (
                     <div key={entry.id} className="history-entry">

@@ -153,6 +153,11 @@ const TimerManager: React.FC<TimerManagerProps> = ({ allowMultipleTimers = false
             type="text"
             value={newTimerName}
             onChange={(e) => setNewTimerName(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                addTimer();
+              }
+            }}
             placeholder="Enter timer name"
           />
           <button onClick={addTimer}>Add Timer</button>

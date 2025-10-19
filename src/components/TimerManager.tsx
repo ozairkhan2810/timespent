@@ -189,7 +189,12 @@ const TimerManager: React.FC<TimerManagerProps> = ({ allowMultipleTimers = false
             {timer.history.length > 0 && (
               <div className="timer-history">
                 <div className="history-header">
-                  <h4>History</h4>
+                  <div className="history-title">
+                    <h4>History</h4>
+                    <div className="total-time">
+                      Total: {formatTime(timer.history.reduce((sum, entry) => sum + entry.duration, 0))}
+                    </div>
+                  </div>
                   <button 
                     className="clear-history-btn"
                     onClick={() => clearHistory(timer.id)}

@@ -128,14 +128,27 @@
 .history-header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   margin-bottom: 10px;
 }
 
-.history-header h4 {
+.history-title {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.history-title h4 {
   color: #2c3e50;
   margin: 0;
   font-size: 1.1rem;
+}
+
+.total-time {
+  font-size: 0.9rem;
+  color: #34495e;
+  font-family: monospace;
+  font-weight: 600;
 }
 
 .clear-history-btn {
